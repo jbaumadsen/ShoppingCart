@@ -101,14 +101,14 @@ const Products = (props) => {
   // Fetch Data
   const addToCart = (e) => {
     let name = e.target.name;
-    let item = items.filter((thing) => thing.name == name);
+    let item = items.filter((product) => product.name == name);
+    if(item[0].instock == 0) return;
     setCart([...cart, ...item]);
     let newItems = items.map(product => {
       if(product.name == name) product.instock--;
       return product;
     });
     setItems(newItems);
-
     //doFetch(query);
   };
   const deleteCartItem = (index) => {
@@ -182,7 +182,7 @@ const Products = (props) => {
       let {name, country, cost, instock } = item;
       return {name, country, cost, instock};
     })
-    setItems([...items, ...newItems]);
+    setItems(newItems);
   };
 
   return (
